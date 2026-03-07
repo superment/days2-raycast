@@ -22,7 +22,7 @@
     },
     {
       "name": "background-refresh",
-      "title": "Background Refresh",
+      "title": "Days 2",
       "description": "Updates the nearest event subtitle in Raycast root search",
       "mode": "no-view",
       "interval": "1h"
@@ -46,7 +46,8 @@
       "data": [
         { "title": "Days", "value": "days" },
         { "title": "Weeks + Days", "value": "weeks" },
-        { "title": "Months + Days", "value": "months" }
+        { "title": "Months + Days", "value": "months" },
+        { "title": "Date", "value": "date" }
       ]
     }
   ],

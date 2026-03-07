@@ -212,6 +212,13 @@ function CalendarDropdown(props: {
   );
 }
 
+function getCountdownText(event: AllDayEvent, mode: DisplayMode): string {
+  if (mode === "date") {
+    return formatDate(event.startDate);
+  }
+  return formatCountdown(event.daysUntil, mode);
+}
+
 function EventListItem(props: {
   event: AllDayEvent;
   displayMode: DisplayMode;
@@ -219,14 +226,17 @@ function EventListItem(props: {
   isHero?: boolean;
 }) {
   const { event, displayMode, onToggleDisplayMode, isHero } = props;
-  const countdownText = formatCountdown(event.daysUntil, displayMode);
+  const countdownText = getCountdownText(event, displayMode);
 
-  const accessories: List.Item.Accessory[] = [{ text: countdownText }];
-  if (isHero) {
+  const accessories: List.Item.Accessory[] = [];
+  if (isHero && displayMode !== "date") {
     accessories.push({
       text: { value: formatDate(event.startDate), color: Color.SecondaryText },
     });
   }
+  accessories.push({
+    tag: { value: countdownText, color: Color.PrimaryText },
+  });
 
   return (
     <List.Item
@@ -254,7 +264,7 @@ function EventListItem(props: {
                 title="Show Description"
                 icon={Icon.Document}
                 shortcut={{ modifiers: ["cmd", "shift"], key: "d" }}
-                target={<EventDetail event={event} />}
+                target={<EventDescription event={event} />}
               />
             )}
           </ActionPanel.Section>
@@ -281,7 +291,7 @@ function EventListItem(props: {
   );
 }
 
-function EventDetail(props: { event: AllDayEvent }) {
+function EventDescription(props: { event: AllDayEvent }) {
   const { event } = props;
   const markdown = `# ${event.title}\n\n**Calendar:** ${event.calendarName}  \n**Date:** ${formatDate(event.startDate)}\n\n---\n\n${event.description ?? "No description."}`;
 

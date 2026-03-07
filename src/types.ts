@@ -1,5 +1,5 @@
 // Display mode for countdown formatting
-export type DisplayMode = "days" | "weeks" | "months";
+export type DisplayMode = "days" | "weeks" | "months" | "date";
 
 // Google Calendar API response types
 

@@ -58,9 +58,28 @@ function ManageCalendarsCommand() {
 
   const isLoading = calendarsLoading || selectedLoading;
   const selectedSet = new Set(selectedIds ?? []);
+  const allSelected =
+    calendars !== undefined &&
+    calendars.length > 0 &&
+    selectedSet.size === calendars.length;
 
   return (
     <List isLoading={isLoading} navigationTitle="Manage Calendars">
+      <List.Section>
+        <List.Item
+          title={allSelected ? "Deselect All" : "Select All"}
+          icon={allSelected ? Icon.Circle : Icon.CheckCircle}
+          actions={
+            <ActionPanel>
+              <Action
+                title={allSelected ? "Deselect All" : "Select All"}
+                icon={allSelected ? Icon.Circle : Icon.CheckCircle}
+                onAction={allSelected ? handleDeselectAll : handleSelectAll}
+              />
+            </ActionPanel>
+          }
+        />
+      </List.Section>
       <List.Section
         title="Google Calendars"
         subtitle={`${selectedSet.size} selected`}

@@ -3,7 +3,6 @@ import { withAccessToken } from "@raycast/utils";
 import { google } from "./oauth";
 import { fetchCalendars, fetchUpcomingAllDayEvents } from "./google-calendar";
 import { getSelectedCalendarIds } from "./storage";
-import { formatCountdown } from "./utils";
 import { GoogleCalendar } from "./types";
 
 async function BackgroundRefreshCommand() {
@@ -30,7 +29,10 @@ async function BackgroundRefreshCommand() {
     }
 
     const nearest = events[0];
-    const subtitle = `${nearest.title} \u2014 ${formatCountdown(nearest.daysUntil, "days")}`;
+    const days = Math.abs(nearest.daysUntil);
+    const daysText =
+      nearest.daysUntil === 0 ? "Today" : `${days} day${days !== 1 ? "s" : ""}`;
+    const subtitle = `${nearest.title} \u2014 ${daysText}`;
     await updateCommandMetadata({ subtitle });
   } catch (error) {
     console.error("Background refresh error:", error);
