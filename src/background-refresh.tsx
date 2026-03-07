@@ -1,4 +1,9 @@
-import { updateCommandMetadata } from "@raycast/api";
+import {
+  updateCommandMetadata,
+  launchCommand,
+  LaunchType,
+  environment,
+} from "@raycast/api";
 import { withAccessToken } from "@raycast/utils";
 import { google } from "./oauth";
 import { fetchCalendars, fetchUpcomingAllDayEvents } from "./google-calendar";
@@ -6,6 +11,10 @@ import { getSelectedCalendarIds } from "./storage";
 import { GoogleCalendar } from "./types";
 
 async function BackgroundRefreshCommand() {
+  if (environment.launchType === LaunchType.UserInitiated) {
+    await launchCommand({ name: "days2", type: LaunchType.UserInitiated });
+  }
+
   try {
     const calendars = await fetchCalendars();
     const calendarMap = new Map<string, GoogleCalendar>();
