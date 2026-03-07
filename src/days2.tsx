@@ -106,12 +106,12 @@ function Days2Command() {
     return perEventMode[eventId] ?? globalDisplayMode;
   }
 
-  function toggleEventDisplayMode(eventId: string) {
+  function toggleEventDisplayMode(eventId: string, daysUntil: number) {
     setPerEventMode((prev) => {
       const current = prev[eventId] ?? globalDisplayMode;
       return {
         ...prev,
-        [eventId]: nextDisplayMode(current),
+        [eventId]: nextDisplayMode(current, daysUntil),
       };
     });
   }
@@ -135,7 +135,9 @@ function Days2Command() {
           <EventListItem
             event={heroEvent}
             displayMode={getEventDisplayMode(heroEvent.id)}
-            onToggleDisplayMode={() => toggleEventDisplayMode(heroEvent.id)}
+            onToggleDisplayMode={() =>
+              toggleEventDisplayMode(heroEvent.id, heroEvent.daysUntil)
+            }
             isHero={true}
           />
         </List.Section>
@@ -151,7 +153,9 @@ function Days2Command() {
               key={`${event.calendarId}-${event.id}`}
               event={event}
               displayMode={getEventDisplayMode(event.id)}
-              onToggleDisplayMode={() => toggleEventDisplayMode(event.id)}
+              onToggleDisplayMode={() =>
+                toggleEventDisplayMode(event.id, event.daysUntil)
+              }
             />
           ))}
         </List.Section>
@@ -167,7 +171,9 @@ function Days2Command() {
               key={`past-${event.calendarId}-${event.id}`}
               event={event}
               displayMode={getEventDisplayMode(event.id)}
-              onToggleDisplayMode={() => toggleEventDisplayMode(event.id)}
+              onToggleDisplayMode={() =>
+                toggleEventDisplayMode(event.id, event.daysUntil)
+              }
             />
           ))}
         </List.Section>

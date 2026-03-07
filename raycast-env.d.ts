@@ -8,8 +8,6 @@
 /* eslint-disable @typescript-eslint/ban-types */
 
 type ExtensionPreferences = {
-  /** Google OAuth Client ID - OAuth Client ID from Google Cloud Console (iOS type, bundle ID: com.raycast) */
-  "clientId": string,
   /** Default Display Mode - How to display the countdown by default */
   "displayMode": "days" | "weeks" | "months"
 }

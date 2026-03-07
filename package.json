@@ -30,13 +30,6 @@
   ],
   "preferences": [
     {
-      "name": "clientId",
-      "title": "Google OAuth Client ID",
-      "description": "OAuth Client ID from Google Cloud Console (iOS type, bundle ID: com.raycast)",
-      "type": "textfield",
-      "required": true
-    },
-    {
       "name": "displayMode",
       "title": "Default Display Mode",
       "description": "How to display the countdown by default",

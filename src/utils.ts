@@ -73,10 +73,21 @@ export function formatCountdown(daysUntil: number, mode: DisplayMode): string {
 
 const DISPLAY_MODES: DisplayMode[] = ["days", "weeks", "months"];
 
-export function nextDisplayMode(current: DisplayMode): DisplayMode {
+export function nextDisplayMode(
+  current: DisplayMode,
+  daysUntil: number,
+): DisplayMode {
+  const absDays = Math.abs(daysUntil);
   const idx = DISPLAY_MODES.indexOf(current);
   if (idx === -1) return DISPLAY_MODES[0];
-  return DISPLAY_MODES[(idx + 1) % DISPLAY_MODES.length];
+
+  for (let i = 1; i < DISPLAY_MODES.length; i++) {
+    const candidate = DISPLAY_MODES[(idx + i) % DISPLAY_MODES.length];
+    if (candidate === "weeks" && absDays < 7) continue;
+    if (candidate === "months" && absDays < 30) continue;
+    return candidate;
+  }
+  return current;
 }
 
 /**
