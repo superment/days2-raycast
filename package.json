@@ -2,7 +2,7 @@
   "$schema": "https://www.raycast.com/schemas/extension.json",
   "name": "days2",
   "title": "Days 2",
-  "description": "Countdown to all-day events from Google Calendar",
+  "description": "Countdown to all-day events from Google Calendar — see how many days until your next birthday, holiday, deadline, or milestone.",
   "icon": "icon.png",
   "author": "datboi",
   "categories": ["Productivity"],
@@ -58,6 +58,7 @@
     "build": "ray build",
     "dev": "ray develop",
     "fix-lint": "ray lint --fix",
-    "lint": "ray lint"
+    "lint": "ray lint",
+    "publish": "npx @raycast/api@latest publish"
   }
 }
