@@ -71,10 +71,11 @@ export function formatCountdown(daysUntil: number, mode: DisplayMode): string {
   return `${prefix}${text}${suffix}`;
 }
 
-const DISPLAY_MODES: DisplayMode[] = ["days", "weeks", "months", "date"];
+const DISPLAY_MODES: DisplayMode[] = ["days", "weeks", "months"];
 
 export function nextDisplayMode(current: DisplayMode): DisplayMode {
   const idx = DISPLAY_MODES.indexOf(current);
+  if (idx === -1) return DISPLAY_MODES[0];
   return DISPLAY_MODES[(idx + 1) % DISPLAY_MODES.length];
 }
 

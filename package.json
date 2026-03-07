@@ -46,8 +46,7 @@
       "data": [
         { "title": "Days", "value": "days" },
         { "title": "Weeks + Days", "value": "weeks" },
-        { "title": "Months + Days", "value": "months" },
-        { "title": "Date", "value": "date" }
+        { "title": "Months + Days", "value": "months" }
       ]
     }
   ],

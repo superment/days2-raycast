@@ -32,7 +32,7 @@ async function BackgroundRefreshCommand() {
     const days = Math.abs(nearest.daysUntil);
     const daysText =
       nearest.daysUntil === 0 ? "Today" : `${days} day${days !== 1 ? "s" : ""}`;
-    const subtitle = `${nearest.title} \u2014 ${daysText}`;
+    const subtitle = `${nearest.title} \u2013 ${daysText}`;
     await updateCommandMetadata({ subtitle });
   } catch (error) {
     console.error("Background refresh error:", error);

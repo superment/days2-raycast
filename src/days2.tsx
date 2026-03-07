@@ -107,11 +107,13 @@ function Days2Command() {
   }
 
   function toggleEventDisplayMode(eventId: string) {
-    const current = getEventDisplayMode(eventId);
-    setPerEventMode((prev) => ({
-      ...prev,
-      [eventId]: nextDisplayMode(current),
-    }));
+    setPerEventMode((prev) => {
+      const current = prev[eventId] ?? globalDisplayMode;
+      return {
+        ...prev,
+        [eventId]: nextDisplayMode(current),
+      };
+    });
   }
 
   return (
@@ -212,13 +214,6 @@ function CalendarDropdown(props: {
   );
 }
 
-function getCountdownText(event: AllDayEvent, mode: DisplayMode): string {
-  if (mode === "date") {
-    return formatDate(event.startDate);
-  }
-  return formatCountdown(event.daysUntil, mode);
-}
-
 function EventListItem(props: {
   event: AllDayEvent;
   displayMode: DisplayMode;
@@ -226,17 +221,22 @@ function EventListItem(props: {
   isHero?: boolean;
 }) {
   const { event, displayMode, onToggleDisplayMode, isHero } = props;
-  const countdownText = getCountdownText(event, displayMode);
+  const countdownText = formatCountdown(event.daysUntil, displayMode);
 
-  const accessories: List.Item.Accessory[] = [];
-  if (isHero && displayMode !== "date") {
-    accessories.push({
+  const accessories: List.Item.Accessory[] = [
+    {
       text: { value: formatDate(event.startDate), color: Color.SecondaryText },
+    },
+  ];
+  if (isHero) {
+    accessories.push({
+      tag: { value: countdownText, color: Color.PrimaryText },
+    });
+  } else {
+    accessories.push({
+      text: { value: countdownText, color: Color.SecondaryText },
     });
   }
-  accessories.push({
-    tag: { value: countdownText, color: Color.PrimaryText },
-  });
 
   return (
     <List.Item
